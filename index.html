@@ -6,14 +6,14 @@
 <meta name="theme-color" content="#eaf3fb">
 <title>mellow shift｜勤務カレンダー</title><link rel="manifest" href="./manifest.webmanifest"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default">
 <style>
-:root{--bg:#f6f8fb;--surface:#fff;--ink:#263342;--muted:#8793a1;--line:#e8edf2;--accent:#579bd3;--work:#a9d2f2;--off:#f2bfce;--paid:#c9b8ef;--half:#b9d9c1;--event:#f1d28b;--shadow:0 8px 24px #34495e0d}
+:root{--bg:#f6f8fb;--surface:#fff;--ink:#263342;--muted:#8793a1;--line:#e8edf2;--accent:#8bbce5;--work:#c8e3fa;--off:#f8dce7;--paid:#e5ddf8;--half:#ddeadf;--event:#f6e9c9;--shadow:0 8px 24px #34495e0d}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif;font-size:14px}
 button,input,select,textarea{font:inherit}button{border:0;cursor:pointer;color:inherit}.app{max-width:620px;margin:auto;min-height:100dvh;padding:env(safe-area-inset-top) 16px calc(86px + env(safe-area-inset-bottom))}
 header{display:flex;align-items:center;justify-content:space-between;padding:20px 2px 14px}.brand{font-weight:800;font-size:20px;letter-spacing:.2px}.brand small{display:block;color:var(--muted);font-size:10px;font-weight:500;letter-spacing:1.3px;margin-top:2px}.iconbtn{width:40px;height:40px;border-radius:14px;background:var(--surface);box-shadow:var(--shadow);font-size:18px}
 .page{display:none}.page.active{display:block}.card{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:16px;margin-bottom:12px;box-shadow:var(--shadow)}
 .row{display:flex;align-items:center;justify-content:space-between;gap:10px}.muted{color:var(--muted)}.small{font-size:11px}.section-title{font-size:15px;font-weight:750;margin:0 0 12px}
 .monthbar{display:flex;align-items:center;justify-content:space-between;margin:8px 2px 14px}.monthbar strong{font-size:21px}.monthbar button{background:var(--surface);border:1px solid var(--line);border-radius:11px;width:34px;height:34px}
-.week,.calendar{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:5px}.week div{text-align:center;color:var(--muted);font-size:11px;padding:5px 0}.week div:first-child,.day:nth-child(7n + 1) .num{color:#d84b55}.week div:last-child,.day:nth-child(7n) .num{color:#397fc2}.day{min-height:61px;background:#fbfcfd;border:1px solid transparent;border-radius:12px;padding:6px 2px 4px;text-align:center;position:relative;display:flex;flex-direction:column;align-items:center;gap:4px}.day.dim{opacity:.32}.day.today{border-color:var(--accent)}.day.selected{box-shadow:inset 0 0 0 2px var(--accent)}.day .num{font-size:12px;font-weight:650}.dot{width:7px;height:7px;border-radius:50%;display:inline-block}.day .kind{font-size:9px;line-height:1.2;white-space:nowrap}.day .eventdots{position:absolute;right:4px;top:4px;display:flex;gap:2px}.day .eventdot{width:5px;height:5px;border-radius:50%;background:var(--event)}
+.week,.calendar{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:5px}.week div{text-align:center;color:var(--muted);font-size:11px;padding:5px 0}.day{min-height:61px;background:#fbfcfd;border:1px solid transparent;border-radius:12px;padding:6px 2px 4px;text-align:center;position:relative;display:flex;flex-direction:column;align-items:center;gap:4px}.day.dim{opacity:.32}.day.today{border-color:var(--accent)}.day.selected{box-shadow:inset 0 0 0 2px var(--accent)}.day .num{font-size:12px;font-weight:650}.dot{width:7px;height:7px;border-radius:50%;display:inline-block}.day .kind{font-size:9px;line-height:1.2;white-space:nowrap}.day .eventdot{position:absolute;right:5px;top:5px;width:5px;height:5px;border-radius:50%;background:var(--event)}
 .legend{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}.legend span{display:flex;align-items:center;gap:5px;font-size:10px;color:var(--muted)}
 .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.stat{background:var(--bg);border-radius:15px;padding:12px}.stat b{font-size:21px;display:block;margin-top:5px}.stat span{font-size:10px;color:var(--muted)}
 .tabs{position:fixed;z-index:5;bottom:0;left:0;right:0;background:#ffffffed;backdrop-filter:blur(16px);border-top:1px solid var(--line);padding:8px max(16px,env(safe-area-inset-left)) calc(8px + env(safe-area-inset-bottom));display:flex;justify-content:center}.tabs-inner{width:min(620px,100%);display:grid;grid-template-columns:repeat(4,1fr);gap:5px}.tab{background:transparent;color:var(--muted);padding:7px 2px;border-radius:13px;font-size:10px}.tab .ico{display:block;font-size:19px;margin-bottom:3px}.tab.active{background:var(--bg);color:var(--ink);font-weight:750}
@@ -40,12 +40,7 @@ label{display:block;font-size:12px;color:var(--muted);margin:10px 0 5px}input,se
   <label>勤務区分</label><select id="dayType"><option>自動</option><option>仕事</option><option>休み</option><option>有給</option><option>午前休</option><option>午後休</option></select>
   <div class="btnrow"><button class="btn" onclick="saveDayType()">変更を保存</button><button class="btn secondary" onclick="swapWith()">別の日と入れ替え</button></div>
   <label>この日の予定</label><div id="dayEvents"></div>
-  <div class="btnrow"><button class="btn secondary" onclick="toggleEventForm(true)">＋ 予定を追加</button></div>
-  <div id="eventForm" style="display:none;margin-top:12px;padding:12px;background:var(--bg);border-radius:14px">
-   <label>予定の名前</label><input id="eventTitle" type="text" maxlength="60" placeholder="例：友達とランチ">
-   <div class="row" style="gap:10px"><div style="flex:1"><label>開始時刻</label><input id="eventTime" type="time"></div><div style="width:76px"><label>色</label><input id="eventColor" type="color" value="#e6a6b5" style="height:42px;padding:3px"></div></div>
-   <div class="btnrow"><button class="btn" onclick="saveEvent()">予定を保存</button><button class="btn secondary" onclick="toggleEventForm(false)">キャンセル</button></div>
-  </div>
+  <div class="btnrow"><button class="btn secondary" onclick="addEvent()">＋ 予定を追加</button></div>
  </div>
 </section>
 
@@ -85,7 +80,7 @@ label{display:block;font-size:12px;color:var(--muted);margin:10px 0 5px}input,se
 </div></nav>
 <script>
 const KEY='mellowShiftDataV1';
-const defaultColors={work:'#a9d2f2',off:'#f2bfce',paid:'#c9b8ef',half:'#b9d9c1',event:'#f1d28b',accent:'#579bd3'};
+const defaultColors={work:'#c8e3fa',off:'#f8dce7',paid:'#e5ddf8',half:'#ddeadf',event:'#f6e9c9',accent:'#8bbce5'};
 let data=load(), view=new Date(), selected=iso(new Date());
 function iso(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
 function parse(s){let [y,m,d]=s.split('-').map(Number);return new Date(y,m-1,d)}
@@ -101,7 +96,7 @@ function moveMonth(n){view.setMonth(view.getMonth()+n);renderCalendar()}
 function renderCalendar(){
  document.getElementById('monthLabel').textContent=view.getFullYear()+'年 '+(view.getMonth()+1)+'月';
  const first=new Date(view.getFullYear(),view.getMonth(),1),start=new Date(view.getFullYear(),view.getMonth(),1-first.getDay());
- let h='';for(let i=0;i<42;i++){let d=new Date(start);d.setDate(start.getDate()+i);let s=iso(d),t=type(s),k=colorKey(t),isDim=d.getMonth()!==view.getMonth(),evs=data.events.filter(e=>e.date===s);let dots=evs.slice(0,3).map(e=>`<i class="eventdot" style="background:${e.color||data.colors.event}"></i>`).join('');h+=`<button class="day ${isDim?'dim':''} ${s===iso(new Date())?'today':''} ${s===selected?'selected':''}" style="background:${data.colors[k]}66" onclick="selectDay('${s}')">${evs.length?`<span class="eventdots">${dots}</span>`:''}<span class="num">${d.getDate()}</span><span class="kind">${label(t)}</span></button>`}
+ let h='';for(let i=0;i<42;i++){let d=new Date(start);d.setDate(start.getDate()+i);let s=iso(d),t=type(s),k=colorKey(t),isDim=d.getMonth()!==view.getMonth(),ev=data.events.some(e=>e.date===s);h+=`<button class="day ${isDim?'dim':''} ${s===iso(new Date())?'today':''} ${s===selected?'selected':''}" style="background:${data.colors[k]}22" onclick="selectDay('${s}')">${ev?'<i class="eventdot"></i>':''}<span class="num">${d.getDate()}</span><span class="kind">${label(t)}</span></button>`}
  document.getElementById('calendar').innerHTML=h;
  const today=iso(new Date());document.getElementById('todayKind').textContent=type(today);
  let next=null;for(let i=0;i<60;i++){let d=new Date();d.setDate(d.getDate()+i);if(type(iso(d))==='休み'){next=d;break}}
@@ -111,15 +106,13 @@ function renderCalendar(){
 function selectDay(s){selected=s;let d=parse(s);view=new Date(d.getFullYear(),d.getMonth(),1);renderCalendar()}
 function renderDay(){
  document.getElementById('selectedDate').textContent=selected.replaceAll('-','/');let t=type(selected),el=document.getElementById('selectedKind');el.textContent=t;el.style.background=data.colors[colorKey(t)];document.getElementById('dayType').value=data.overrides[selected]||'自動';
- let es=data.events.filter(e=>e.date===selected);document.getElementById('dayEvents').innerHTML=es.length?es.map(e=>`<div class="event row"><span><i class="dot" style="background:${e.color||data.colors.event};margin-right:7px"></i>${escapeHtml(e.title)}${e.time?' · '+e.time:''}</span><button class="muted" onclick="deleteEvent('${e.id}')">削除</button></div>`).join(''):'<div class="muted small">予定はありません</div>';
- document.getElementById('eventForm').style.display='none';
+ let es=data.events.filter(e=>e.date===selected);document.getElementById('dayEvents').innerHTML=es.length?es.map(e=>`<div class="event row"><span>${escapeHtml(e.title)}${e.time?' · '+e.time:''}</span><button class="muted" onclick="deleteEvent('${e.id}')">削除</button></div>`).join(''):'<div class="muted small">予定はありません</div>';
 }
 function saveDayType(){let v=document.getElementById('dayType').value;if(v==='自動')delete data.overrides[selected];else data.overrides[selected]=v;persist();renderCalendar()}
 function swapWith(){let other=prompt('入れ替える日付を入力（例：2026-11-18）');if(!other)return;if(!/^\d{4}-\d{2}-\d{2}$/.test(other)||isNaN(parse(other).getTime())){alert('日付の形式を確認してください');return}let a=data.overrides[selected]||baseType(selected),b=data.overrides[other]||baseType(other);data.overrides[selected]=b;data.overrides[other]=a;persist();renderCalendar();alert(`${selected} と ${other} の勤務区分を入れ替えました`)}
-function toggleEventForm(show){document.getElementById('eventForm').style.display=show?'block':'none';if(show){document.getElementById('eventTitle').focus();document.getElementById('eventColor').value=data.colors.event}}
-function saveEvent(){let title=document.getElementById('eventTitle').value.trim();if(!title){alert('予定の名前を入力してください');return}let time=document.getElementById('eventTime').value,color=document.getElementById('eventColor').value;data.events.push({id:String(Date.now()),date:selected,title,time,color});persist();document.getElementById('eventTitle').value='';document.getElementById('eventTime').value='';toggleEventForm(false);renderCalendar()}
+function addEvent(){let title=prompt('予定の名前');if(!title||!title.trim())return;let time=prompt('開始時刻（任意・例 14:00）')||'';data.events.push({id:String(Date.now()),date:selected,title:title.trim(),time});persist();renderCalendar()}
 function deleteEvent(id){data.events=data.events.filter(e=>e.id!==id);persist();renderCalendar()}
-function renderPlans(){let es=[...data.events].sort((a,b)=>(a.date+a.time).localeCompare(b.date+b.time));document.getElementById('allEvents').innerHTML=es.length?es.map(e=>`<div class="event row"><div><b>${e.date}</b><div><i class="dot" style="background:${e.color||data.colors.event};margin-right:6px"></i>${escapeHtml(e.title)} ${e.time||''}</div></div><button class="muted" onclick="deleteEvent('${e.id}');renderPlans()">削除</button></div>`).join(''):'<div class="empty">登録された予定はありません</div>';
+function renderPlans(){let es=[...data.events].sort((a,b)=>(a.date+a.time).localeCompare(b.date+b.time));document.getElementById('allEvents').innerHTML=es.length?es.map(e=>`<div class="event row"><div><b>${e.date}</b><div>${escapeHtml(e.title)} ${e.time||''}</div></div><button class="muted" onclick="deleteEvent('${e.id}');renderPlans()">削除</button></div>`).join(''):'<div class="empty">登録された予定はありません</div>';
  let runs=[],run=[];for(let i=0;i<90;i++){let d=new Date();d.setDate(d.getDate()+i);let s=iso(d),t=type(s);if(t==='休み'||t==='有給')run.push(s);else{if(run.length>=3)runs.push([...run]);run=[]}}if(run.length>=3)runs.push(run);document.getElementById('longBreaks').innerHTML=runs.length?runs.map(r=>`<div class="event"><b>${r[0]} ～ ${r[r.length-1]}</b><div class="muted small">${r.length}日間</div></div>`).join(''):'<div class="empty">今後90日間に3連休以上はありません</div>'}
 function leaveStats(){let auto=Object.values(data.overrides).filter(t=>t==='有給').length+Object.values(data.overrides).filter(t=>t==='午前休'||t==='午後休').length*.5;let used=Number(data.usedManual||0)+auto;return {used,remain:Math.max(0,Number(data.grant||0)-used)}}
 function renderLeave(){let s=leaveStats();document.getElementById('grant').value=data.grant;document.getElementById('usedManual').value=data.usedManual;document.getElementById('grantStat').textContent=data.grant;document.getElementById('usedStat').textContent=s.used;document.getElementById('remainStat').textContent=s.remain;let hist=Object.entries(data.overrides).filter(([d,t])=>['有給','午前休','午後休'].includes(t)).sort().map(([d,t])=>`<div class="event row"><span>${d}</span><span>${t}</span></div>`).join('');document.getElementById('leaveHistory').innerHTML=hist||'<div class="empty">取得履歴はありません</div>'}
