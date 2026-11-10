@@ -1,0 +1,9 @@
+{
+  "name": "mellow shift｜勤務カレンダー",
+  "short_name": "mellow shift",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#f6f8fb",
+  "theme_color": "#eaf3fb",
+  "lang": "ja"
+}
